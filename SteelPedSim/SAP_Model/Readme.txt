@@ -1,0 +1,1 @@
+In the 'DOF.txt', the first column is the node label in the FE model built in SAP2000, and column 2~7 represents the location of six DOFs for the corresponding node in the stiffness and mass matrices, i.e. the 2nd row represents the locations of six DOFs for node '2' in the stiffness and mass matrices. 'selMeasDOFs.m' selects the measured DOFs from the all the DOFs. 

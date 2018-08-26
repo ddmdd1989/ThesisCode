@@ -1,0 +1,1 @@
+In the 'DOFInfo.mat', 'DOFlist' variable includes the node label of the FE model built in SAP 2000; 'DOF' variable lists the location of the DOFs for each node in the stiffness and mass matrices, i.e. the 2nd row in 'DOF' represents the locations of six DOFs for node 'A2' in the stiffness and mass matrices. 'selMeasDOFs.m' selects the measured DOFs from the all the DOFs. 

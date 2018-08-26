@@ -147,6 +147,49 @@ set(lgd,'fontsize',FZ);
 set(gca,'fontsize',FZ);
 
 
+%% MDR Jacon
+
+filename = 'ConcBuildFrm_form3_JACon_LM';
+load(filename);
+[fval_sort7,index] = sort(fval,'ascend');
+x = alpha(1:n_alpha,:);
+x_sort = x(:,index);
+n_alpha = size(x,1);
+error(1,:) = abs(x_sort(:,1) - actual) ./ (ones(n_alpha,1) + actual) * 100;
+
+for i = 1:num_star
+    error_iter = abs(x(:,i) - actual) ./ (ones(n_alpha,1) + actual) * 100;
+    mean_error(i,1) = mean(error_iter);
+end
+
+filename = 'ConcBuildFrm_form3_JACon_TRR';
+load(filename);
+[fval_sort6,index] = sort(fval,'ascend');
+x = alpha(1:n_alpha,:);
+x_sort = x(:,index);
+n_alpha = size(x,1);
+error(2,:) = abs(x_sort(:,1) - actual) ./ (ones(n_alpha,1) + actual) * 100;
+
+for i = 1:num_star
+    error_iter = abs(x(:,i) - actual) ./ (ones(n_alpha,1) + actual) * 100;
+    mean_error(i,2) = mean(error_iter);
+end
+
+Figure_updatingErrors_MDR_A_Jac
+
+
+figHand = figure; 
+set (figHand, 'Position',[250 250 500 250]);
+
+plot(1:num_star,mean_error(:,1),'*','Color', [17/255 17/255 17/255])
+hold on
+plot(1:num_star,mean_error(:,2),'ok')
+xlabel('Starting Points','Fontsize',11);
+ylabel('Avg. relative error \fontname{Times New Roman}{\ite}_{avg} (%)','fontsize',11)
+lgd = legend('Case 2(a)','Case 2(b)');
+set(lgd,'fontsize',FZ);
+set(gca,'fontsize',FZ);
+
 
 
 

@@ -4,7 +4,7 @@ close all
 
 LoadStructure;
 
-n_alpha = size(K_j,3) - 2;
+n_alpha = size(K_j,3);
 modeIndex = [1 2 4];
 
 %% Assemble structure parameter:
@@ -16,22 +16,23 @@ structModel.K_j = K_j(:,:,1 : n_alpha);
 optimzOpts.tolFun = 1e-10;
 optimzOpts.tolX = 1e-10;
 optimzOpts.tolGrad = 1e-10;
-optimzOpts.toolBox = 'lsqnonlin';
+optimzOpts.toolBox = 'fmincon';
 optimzOpts.optAlgorithm = 'trust-region-reflective';
+
 
 optimzOpts.gradSel = 'on';
 optimzOpts.maxIter = 1e3;
 optimzOpts.maxFunEvals = 3e3;
 
 %% Model updating parameter
-updatingOpts.formID = 2;       % 1: Modal property diff (MAC) ;
+updatingOpts.formID = 1;       % 1: Modal property diff (MAC) ;
                                % 2: Modal property diff (V_mDiff);
 updatingOpts.modeMatch = 2;   % 1: Without forced matching;
                                % 2: With forced matching;
 updatingOpts.simModesForExpMatch = modeIndex;
 
-updatingOpts.x_lb = [-1* ones(n_alpha - 3,1); -1;   -ones(2,1)];
-updatingOpts.x_ub = [ 1 * ones(n_alpha - 3,1);  1;  10 * ones(2,1) ];
+updatingOpts.x_lb = [-1* ones(n_alpha - 5,1); -1;   -ones(4,1)];
+updatingOpts.x_ub = [ 1 * ones(n_alpha - 5,1);  1;  10 * ones(4,1) ];
 
 
 %% Experimental modal properties
@@ -59,7 +60,7 @@ for i = 1:length(modeIndex)
     end
 end
 weightLambda = lambdaExp ./ std_Lambda(modeIndex);
-expModes.lambdaWeights = weightLambda .* [2;1;3];
+expModes.lambdaWeights = weightLambda; %.* [2;1;3];
 expModes.psiWeights = weightPsi;
 
 if(strcmp(optimzOpts.toolBox,'L_M'))
@@ -77,7 +78,7 @@ elseif(strcmp(optimzOpts.toolBox,'fmincon'))
 end
 
 numRuns = 100 ;
-randSeed = 1;
+
 MultiRunModelUpdating
 % 
 

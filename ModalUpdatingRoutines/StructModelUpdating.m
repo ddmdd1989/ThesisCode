@@ -278,7 +278,7 @@ end
 
 if( (updatingOpts.formID >= 2 && updatingOpts.formID < 3) || updatingOpts.formID >= 5) 
     if(size(expModes.psiWeights,1) <  expModes.n_meas)
-        expModes.psiWeights =  expModes.psiWeights .*...
+        expModes.psiWeights =  expModes.psiWeights' .*...
                                  ones(expModes.n_meas, expModes.n_modes);
     end
     

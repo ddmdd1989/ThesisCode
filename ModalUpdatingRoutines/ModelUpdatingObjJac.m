@@ -173,11 +173,15 @@ end
 
 % fmincon use scalar as objective function output
 if(strcmp(optToolBox,'fmincon') && updatingOpts.formID < 4)
-    jac = 2 * jac' * r;
+    if nargout > 1
+       jac = 2 * jac' * r;
+    end
     r = norm(r)^2;
 elseif(strcmp(optToolBox,'fmincon') && updatingOpts.formID >= 4)
     % log10() of objective function
-    jac = 1 / log(10) / norm(r)^2  * 2 * jac' * r;
+    if nargout > 1
+        jac = 1 / log(10) / norm(r)^2  * 2 * jac' * r;
+    end
     r = log10(norm(r)^2);
 end
 
